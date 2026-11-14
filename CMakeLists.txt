@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(merge_sort
-        MergeSort.cpp)
+        MergeSort.cpp main.cpp
+        )
