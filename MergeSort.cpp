@@ -132,3 +132,5 @@ void MergeSort<T>::sort()
 
 template class MergeSort<int>;
 template class MergeSort<double>;
+template class MergeSort<float>;
+template class MergeSort<long int>;

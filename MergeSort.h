@@ -19,7 +19,7 @@ private:
 public:
     MergeSort(T* array, int size);
     ~MergeSort();
-    T* get_array()
+    T* getArray()
     {
         return this->array;
     }
