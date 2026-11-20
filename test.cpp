@@ -1,9 +1,20 @@
+/**
+ * @file
+ * @brief Testy jednostkowe klasy MergeSort wykorzystujące Google Test.
+ * @details Obejmują różne kolejności danych, liczby ujemne, duplikaty,
+ * tablice o większych rozmiarach oraz tablice puste i jednoelementowe.
+ */
+
 #include <gtest/gtest.h>
 #include <cstdlib>
 #include <ctime>
 #include "MergeSort.h"
 
-// zachowuje tablicę niezmienioną, gdy ona jest już posortowana rosnąco,
+/**
+ * @brief Sprawdza sortowanie tablicy już uporządkowanej rosnąco.
+ * @test Wynik sortowania sześciu rosnących liczb jest zgodny
+ * z oczekiwaną tablicą o tej samej kolejności elementów.
+ */
 TEST(MergeSortTest, SortedAscending) {
     int input[] = { 1, 2, 3, 4, 5, 6 };
     int expected[] = { 1, 2, 3, 4, 5, 6 };
@@ -17,7 +28,11 @@ TEST(MergeSortTest, SortedAscending) {
     }
 }
 
-// potrafi posortować tablicę, która jest posortowana w odwrotnej kolejności,
+/**
+ * @brief Sprawdza sortowanie tablicy uporządkowanej malejąco.
+ * @test Siedem liczb podanych w odwrotnej kolejności zostaje
+ * uporządkowanych rosnąco zgodnie z tablicą oczekiwaną.
+ */
 TEST(MergeSortTest, ReverseSorted) {
     int input[] = { 9, 7, 5, 3, 1, -2, -6 };
     int expected[] = { -6 ,-2, 1, 3, 5, 7, 9 };
@@ -31,7 +46,11 @@ TEST(MergeSortTest, ReverseSorted) {
     }
 }
 
-// poprawnie sortuje losową tablicę liczb,
+/**
+ * @brief Sprawdza sortowanie losowej tablicy liczb nieujemnych.
+ * @test Po posortowaniu 15 liczb z zakresu [0, 999] każdy element
+ * jest mniejszy lub równy elementowi następującemu po nim.
+ */
 TEST(MergeSortTest, RandomArray) {
     srand(time(nullptr));
     const int size = 15; //musi byc const bo w visual studio sie wywali
@@ -49,7 +68,11 @@ TEST(MergeSortTest, RandomArray) {
     }
 }
 
-// poprawnie sortuje tablice tylko z liczbami ujemnymi,
+/**
+ * @brief Sprawdza sortowanie tablicy zawierającej wyłącznie liczby ujemne.
+ * @test Wynik sortowania pięciu liczb ujemnych jest zgodny
+ * z oczekiwaną kolejnością rosnącą.
+ */
 TEST(MergeSortTest, OnlyNegative) {
     int input[] = { -5, -1, -50, -12, -3 };
     int expected[] = { -50, -12, -5, -3, -1 };
@@ -63,7 +86,11 @@ TEST(MergeSortTest, OnlyNegative) {
     }
 }
 
-// poprawnie sortuje tablice z liczbami ujemnymi i liczbami dodatnimi,
+/**
+ * @brief Sprawdza sortowanie liczb ujemnych, dodatnich oraz zera.
+ * @test Wynik sortowania siedmiu liczb o różnych znakach jest zgodny
+ * z oczekiwaną kolejnością rosnącą.
+ */
 TEST(MergeSortTest, NegativeAndPositive) {
     int input[] = { -10, 5, 0, -3, 8, -1, 2 };
     int expected[] = { -10, -3, -1, 0, 2, 5, 8 };
@@ -77,7 +104,11 @@ TEST(MergeSortTest, NegativeAndPositive) {
     }
 }
 
-// obsługuje pustą tablicę bez rzucania wyjątkiem,
+/**
+ * @brief Sprawdza obsługę pustej tablicy.
+ * @test Utworzenie obiektu dla nullptr i rozmiaru 0 oraz wywołanie
+ * sort() nie zgłaszają wyjątku.
+ */
 TEST(MergeSortTest, EmptyArray) {
     int* input = nullptr;
     int size = 0;
@@ -88,7 +119,11 @@ TEST(MergeSortTest, EmptyArray) {
     });
 }
 
-// nie zmienia tablicy, która zawiera tylko jeden element,
+/**
+ * @brief Sprawdza sortowanie tablicy jednoelementowej.
+ * @test Po sortowaniu jedyny element wewnętrznej tablicy
+ * zachowuje wartość 42.
+ */
 TEST(MergeSortTest, SingleElement) {
     int input[] = { 42 };
     int size = 1;
@@ -99,7 +134,11 @@ TEST(MergeSortTest, SingleElement) {
     EXPECT_EQ(arrayTest.getArray()[0], 42);
 }
 
-// poprawnie sortuje tablicę z duplikatami liczb,
+/**
+ * @brief Sprawdza sortowanie dodatnich liczb z duplikatami.
+ * @test Wynik zawiera wszystkie siedem wartości, w tym powtórzenia,
+ * w kolejności zgodnej z tablicą oczekiwaną.
+ */
 TEST(MergeSortTest, Duplicates) {
     int input[] = { 5, 2, 8, 2, 5, 1, 8 };
     int expected[] = { 1, 2, 2, 5, 5, 8, 8 };
@@ -113,7 +152,11 @@ TEST(MergeSortTest, Duplicates) {
     }
 }
 
-// poprawnie sortuje tablice ujemną z duplikatami,
+/**
+ * @brief Sprawdza sortowanie ujemnych liczb z duplikatami.
+ * @test Wynik zawiera wszystkie sześć wartości, w tym powtórzenia,
+ * w kolejności zgodnej z tablicą oczekiwaną.
+ */
 TEST(MergeSortTest, NegativeArrayDuplicates) {
     int input[] = { -4, -1, -4, -9, -1, -2 };
     int expected[] = { -9, -4, -4, -2, -1, -1 };
@@ -127,7 +170,11 @@ TEST(MergeSortTest, NegativeArrayDuplicates) {
     }
 }
 
-// poprawnie sortuje tablice z liczbami ujemnymi, dodatnimi oraz duplikatami,
+/**
+ * @brief Sprawdza sortowanie danych o różnych znakach z duplikatami.
+ * @test Osiem wartości, obejmujących liczby ujemne, dodatnie i zera,
+ * zostaje uporządkowanych zgodnie z tablicą oczekiwaną.
+ */
 TEST(MergeSortTest, MixedNumbersDuplicates) {
     int input[] = { 3, -2, 0, 3, -5, 0, -2, 7 };
     int expected[] = { -5, -2, -2, 0, 0, 3, 3, 7 };
@@ -141,7 +188,10 @@ TEST(MergeSortTest, MixedNumbersDuplicates) {
     }
 }
 
-// poprawnie sortuje tablicę zawierającą tylko dwa elementy w kolejności rosnącej,
+/**
+ * @brief Sprawdza sortowanie dwóch elementów podanych rosnąco.
+ * @test Po sortowaniu elementy mają kolejno wartości 10 oraz 20.
+ */
 TEST(MergeSortTest, TwoElementsAscending) {
     int input[] = { 10, 20 };
     int size = 2;
@@ -153,7 +203,11 @@ TEST(MergeSortTest, TwoElementsAscending) {
     EXPECT_EQ(arrayTest.getArray()[1], 20);
 }
 
-// poprawnie sortuje dużą tablicę zawierającą ponad 100 elementów,
+/**
+ * @brief Sprawdza sortowanie tablicy zawierającej ponad 100 elementów.
+ * @test Po posortowaniu 120 losowych liczb z zakresu [0, 9999]
+ * każda para sąsiednich elementów spełnia warunek kolejności rosnącej.
+ */
 TEST(MergeSortTest, Over100Elements) {
     srand(time(nullptr));
     const int size = 120; //musi byc const bo w visual studio sie wywali
@@ -171,7 +225,11 @@ TEST(MergeSortTest, Over100Elements) {
     }
 }
 
-// poprawnie sortuje dużą tablicę zawierającą ponad 100 elementów z liczbami ujemnymi, dodatnimi oraz duplikatami,
+/**
+ * @brief Sprawdza sortowanie dużej tablicy z powtarzającymi się wartościami.
+ * @test Po posortowaniu 200 losowych liczb z zakresu [-25, 25]
+ * każda para sąsiednich elementów spełnia warunek kolejności rosnącej.
+ */
 TEST(MergeSortTest, LargeMixedArrayDuplicates) {
     srand(time(nullptr));
     const int size = 200; //musi byc const bo w visual studio sie wywali

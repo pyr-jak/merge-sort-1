@@ -1,6 +1,19 @@
+/**
+ * @file
+ * @brief Implementacja sortowania przez scalanie dla klasy MergeSort.
+ * @details Zawiera operacje podziału i scalania zakresów, zarządzanie
+ * pamięcią tablicy oraz jawne konkretyzacje szablonu dla wybranych typów.
+ */
+
 #include "MergeSort.h"
 #include <iostream>
 
+/**
+ * @details Kopiuje oba fragmenty do tablic pomocniczych, a następnie zapisuje
+ * ich elementy w kolejności rosnącej w zakresie [l, r]. Przy równych
+ * wartościach wybiera element z lewej tablicy, zachowując stabilność scalania.
+ * Czas działania i pamięć pomocnicza wynoszą O(r - l + 1).
+ */
 template <typename T>
 void MergeSort<T>::merge(int l, int m, int r)
 {
@@ -57,6 +70,11 @@ void MergeSort<T>::merge(int l, int m, int r)
     delete[] rightArray;
 }
 
+/**
+ * @details Dzieli zakres na dwie części, sortuje każdą rekurencyjnie
+ * i scala wyniki. Kończy rekurencję, gdy l >= r, czyli zakres zawiera
+ * co najwyżej jeden element.
+ */
 template <typename T>
 void MergeSort<T>::mergeSortA(int l, int r)
 {
@@ -70,6 +88,11 @@ void MergeSort<T>::mergeSortA(int l, int r)
     merge(l, m, r);
 }
 
+/**
+ * @details Dla niepustych danych przydziela własną tablicę i kopiuje
+ * wszystkie elementy źródła. Dla pustych danych ustawia wewnętrzny
+ * wskaźnik na nullptr, a rozmiar na 0.
+ */
 template <typename T>
 MergeSort<T>::MergeSort(T* array, int size)
 {
@@ -89,12 +112,20 @@ MergeSort<T>::MergeSort(T* array, int size)
     }
 }
 
+/**
+ * @details Usuwa wyłącznie wewnętrzną tablicę. Tablica przekazana
+ * do konstruktora pozostaje własnością wywołującego.
+ */
 template <typename T>
 MergeSort<T>::~MergeSort()
 {
     delete[] this->array;
 }
 
+/**
+ * @details Oddziela elementy spacjami i kończy wypisywanie znakiem nowej
+ * linii. Przed listą elementów wypisuje dodatkowy znak nowej linii.
+ */
 template <typename T>
 void MergeSort<T>::print_table()
 {
@@ -111,6 +142,12 @@ void MergeSort<T>::print_table()
     std::cout << std::endl;
 }
 
+/**
+ * @details Dla co najmniej dwóch elementów uruchamia sortowanie całego
+ * zakresu. Dla pustej lub jednoelementowej tablicy od razu wypisuje jej stan.
+ * Dla n = size >= 2 sortowanie zajmuje O(n log n) czasu i O(n) pamięci
+ * pomocniczej; głębokość rekurencji wynosi O(log n).
+ */
 template <typename T>
 void MergeSort<T>::sort()
 {
