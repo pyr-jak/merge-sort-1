@@ -14,11 +14,15 @@ private:
     T* array;
     int size;
     void merge(int l, int m, int r);
-    void mergeSort(int l, int r);
+    void mergeSortA(int l, int r);
     void print_table();
 public:
     MergeSort(T* array, int size);
     ~MergeSort();
+    T* get_array()
+    {
+        return this->array;
+    }
     void sort();
 };
 

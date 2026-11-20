@@ -58,14 +58,14 @@ void MergeSort<T>::merge(int l, int m, int r)
 }
 
 template <typename T>
-void MergeSort<T>::mergeSort(int l, int r)
+void MergeSort<T>::mergeSortA(int l, int r)
 {
     if (l >= r) return;
 
     int m = l + (r - l) / 2;
 
-    mergeSort(l, m);
-    mergeSort(m + 1, r);
+    mergeSortA(l, m);
+    mergeSortA(m + 1, r);
 
     merge(l, m, r);
 }
@@ -73,6 +73,13 @@ void MergeSort<T>::mergeSort(int l, int r)
 template <typename T>
 MergeSort<T>::MergeSort(T* array, int size)
 {
+    if (size <= 0 || array == nullptr)
+    {
+        this->array = nullptr;
+        this->size = 0;
+        return;
+    }
+
     this->array = new T[size];
     this->size = size;
 
@@ -119,7 +126,7 @@ void MergeSort<T>::sort()
         return;
     }
 
-    mergeSort(0, this->size - 1);
+    mergeSortA(0, this->size - 1);
     print_table();
 }
 
